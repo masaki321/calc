@@ -10,7 +10,7 @@ public class main
         String str = "";
         Pattern p = Pattern.compile("/0");
 
-        do
+        r:do
         {
 
             System.out.println("式：");
@@ -30,10 +30,6 @@ public class main
             if(str.equals("end"))
             {
                 break;
-            }else if((opr.length % 2 == 0))
-            {
-                System.out.println("そんな式はありません。");
-                continue;
             }
 
             Deque<String> stack = new ArrayDeque<>();
@@ -96,13 +92,16 @@ public class main
                 switch(que.peekFirst())
                 {
                     case "+":
-                        try
-                        {
+                        try {
                             que.removeFirst();
                             arg2 = ans.removeFirst();
                             arg1 = ans.removeFirst();
                             ans.addFirst(arg1 + arg2);
-                        }catch (NoSuchElementException e) {}
+                        }catch (NoSuchElementException e)
+                        {
+                            System.out.println("そんな式はありません。");
+                            continue r;
+                        }
                         break;
                     case "-":
                         try
@@ -111,7 +110,11 @@ public class main
                             arg2 = ans.removeFirst();
                             arg1 = ans.removeFirst();
                             ans.addFirst(arg1 - arg2);
-                        }catch (NoSuchElementException e) {}
+                        }catch (NoSuchElementException e)
+                        {
+                            System.out.println("そんな式はありません。");
+                            continue r;
+                        }
                         break;
                     case "*":
                         try
@@ -120,7 +123,11 @@ public class main
                             arg2 = ans.removeFirst();
                             arg1 = ans.removeFirst();
                             ans.addFirst(arg1 * arg2);
-                        }catch (NoSuchElementException e) {}
+                        }catch (NoSuchElementException e)
+                        {
+                            System.out.println("そんな式はありません。");
+                            continue r;
+                        }
                         break;
                     case "/":
                         try
@@ -129,7 +136,11 @@ public class main
                             arg2 = ans.removeFirst();
                             arg1 = ans.removeFirst();
                             ans.addFirst(arg1 / arg2);
-                        }catch (NoSuchElementException e) {}
+                        }catch (NoSuchElementException e)
+                        {
+                            System.out.println("そんな式はありません。");
+                            continue r;
+                        }
                         break;
                     default:
                         ans.addFirst(Double.parseDouble(que.removeFirst()));
